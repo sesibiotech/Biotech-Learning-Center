@@ -10,31 +10,59 @@
     --primary-dark: #e76f20;
     --bg: #fafafa;
     --text: #333;
-    --radius: 1px;
+    --radius: 6px;
     --transition: .3s ease;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Inter', Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
-  header { padding: 40px 20px; text-align: center; background: var(--primary); color: white; border-bottom-left-radius: var(--radius); border-bottom-right-radius: var(--radius); animation: fadeIn .8s ease; }
-  nav { display: flex; justify-content: center; gap: 10px; padding: 15px; background: transparent; }
+  body { font-family: 'Inter', Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding-bottom: 90px; }
+  header { padding: 40px 20px; text-align: center; background: var(--primary); color: white; animation: fadeIn .8s ease; }
+  nav { display: flex; justify-content: center; gap: 10px; padding: 15px; }
   nav a { padding: 10px 18px; border-radius: var(--radius); text-decoration: none; color: var(--text); transition: var(--transition); font-weight: 500; }
   nav a:hover { background: var(--primary); color: white; }
-  .container { max-width: 900px; margin: auto; padding: 40px 20px; animation: fadeIn .8s ease; }
+  .container { max-width: 900px; margin: auto; padding: 40px 20px; }
   section { display: none; }
   section.active { display: block; }
   h2 { margin-bottom: 16px; }
-  footer { text-align: center; padding: 25px; margin-top: 60px; background: var(--primary); color: white; border-top-left-radius: var(--radius); border-top-right-radius: var(--radius); animation: fadeIn .8s ease; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(10px);} to { opacity: 1; transform: translateY(0);} }
-.tab-buttons{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;}
-.tab-btn{padding:10px 18px;border-radius:var(--radius);border:1px solid var(--primary);background:white;color:var(--primary);cursor:pointer;transition:var(--transition);font-weight:500;}
-.tab-btn:hover{background:var(--primary);color:white;}
-.prog-content{animation:fadeIn .4s ease;}
-</style>
+
+  /* Tabs */
+  .tab-buttons{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;}
+  .tab-btn{padding:10px 18px;border-radius:var(--radius);border:1px solid var(--primary);background:white;color:var(--primary);cursor:pointer;transition:var(--transition);font-weight:500;}
+  .tab-btn:hover{background:var(--primary);color:white;}
+  .prog-content, .build-content { animation:fadeIn .4s ease; }
+
+  /* Footer Fixo */
+  footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 15px 20px;
+    background: var(--primary);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    z-index: 999;
+  }
+  footer a {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height:40px;
+    width:40px;
+    border-radius:50%;
+    background:white;
+    transition:.3s;
+  }
+  footer a:hover { transform: scale(1.12); }
+  </style>
 </head>
 <body>
 
 <header>
-  <img id="team-logo" src="logo.png" style="max-height:80px; margin-bottom:10px; display:block; margin-left:auto; margin-right:auto; opacity:0; animation:fadeIn .8s ease forwards;">
   <h1>Biotech Learning Center</h1>
 </header>
 
@@ -47,6 +75,7 @@
 </nav>
 
 <div class="container">
+
   <section id="home" class="active">
     <h2>Bem-vindo!</h2>
     <p>Este site foi criado para ajudar equipes de robótica a aprender, evoluir e colaborar.</p>
@@ -55,39 +84,34 @@
   <section id="prog">
     <h2>Programação</h2>
 
-    <div class="tab-buttons" style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
+    <div class="tab-buttons">
       <button class="tab-btn" onclick="openProgTab('pid')">Reto com PID</button>
       <button class="tab-btn" onclick="openProgTab('sem-pid')">Reto sem PID</button>
       <button class="tab-btn" onclick="openProgTab('curva-normal')">Curva Normal</button>
       <button class="tab-btn" onclick="openProgTab('curva-controle')">Curva com Controle</button>
     </div>
 
-    <div id="pid" class="prog-content"><div class="img-placeholder" style="width:100%; height:200px; background:#eaeaea; border:2px dashed #ccc; border-radius:var(--radius); margin: 15px 0;"></div>
+    <div id="pid" class="prog-content">
       <h3>Movimento Reto com PID</h3>
-      <p>O PID é um controlador que ajusta automaticamente a potência dos motores para manter o robô alinhado com base na leitura dos sensores. Ele calcula o erro entre o valor desejado (seguir linha ou manter direção) e o valor lido pelos sensores, fazendo pequenos ajustes constantes para corrigir desvios.</p>
-      <ul>
-        <li><strong>P:</strong> corrige o erro de forma imediata.</li>
-        <li><strong>I:</strong> soma erros passados para eliminar desvios persistentes.</li>
-        <li><strong>D:</strong> antecipa mudanças, evitando oscilações.</li>
-      </ul>
-      <p>Use quando precisar de alta precisão e trajetórias longas.</p>
+      <p>O PID ajusta a potência dos motores em tempo real para manter o robô alinhado.</p>
     </div>
 
     <div id="sem-pid" class="prog-content" style="display:none;">
-      <h3>Movimento Reto sem PID</h3>
-      <p>Nesse método, ambos os motores recebem a mesma potência. É simples, rápido e útil para trajetos curtos. Porém, qualquer diferença de atrito ou peso entre os lados faz o robô desviar. Ideal para movimentos curtos, como sair da base.</p>
+      <h3>Reto sem PID</h3>
+      <p>Usa a mesma potência nos dois motores. Simples, porém instável em trajetos longos.</p>
     </div>
 
     <div id="curva-normal" class="prog-content" style="display:none;">
       <h3>Curva Normal</h3>
-      <p>Consiste em reduzir a potência de um motor e aumentar a do outro para girar o robô. É fácil, porém não é tão precisa e pode variar com a bateria.</p>
+      <p>Um motor gira mais rápido que o outro. Fácil, porém pouco precisa.</p>
     </div>
 
     <div id="curva-controle" class="prog-content" style="display:none;">
       <h3>Curva com Controle</h3>
-      <p>Permite giros precisos ajustando o ângulo de rotação com base no giroscópio. Ideal para alinhar com bordas da mesa e posicionamentos exatos.</p>
+      <p>Usa giroscópio para obter ângulos mais precisos em curvas.</p>
     </div>
 </section>
+
 <script>
 function openProgTab(id) {
   document.querySelectorAll('.prog-content').forEach(c=>c.style.display='none');
@@ -106,56 +130,59 @@ function openProgTab(id) {
       <button class="tab-btn" onclick="openBuildTab('hooke')">Lei de Hooke</button>
     </div>
 
-    <div id="pascal" class="build-content"><div class="img-placeholder" style="width:100%; height:220px; background:#eaeaea; border:2px dashed #ccc; border-radius:var(--radius); margin: 15px 0;"></div>
+    <div id="pascal" class="build-content">
       <h3>Princípio de Pascal</h3>
-      <p>Quando a pressão é aplicada em um fluido, ela se espalha igualmente em todas as direções. Em robótica, usamos esse conceito em sistemas pneumáticos para multiplicar força, permitindo levantar peças ou acionar mecanismos com menos esforço.</p>
+      <p>Pressão aplicada a um fluido se distribui igualmente.</p>
     </div>
 
-    <div id="pneumatica" class="build-content"><div class="img-placeholder" style="width:100%; height:220px; background:#eaeaea; border:2px dashed #ccc; border-radius:var(--radius); margin: 15px 0;"></div> style="display:none;">
+    <div id="pneumatica" class="build-content" style="display:none;">
       <h3>Pneumática</h3>
-      <p>Utiliza ar comprimido para gerar movimento. Ideal para garras rápidas e mecanismos leves. Vantagem: velocidade. Desvantagem: controle mais difícil quando é necessário precisão.</p>
+      <p>Usa ar comprimido para movimentar mecanismos.</p>
     </div>
 
-    <div id="arquimedes" class="build-content"><div class="img-placeholder" style="width:100%; height:220px; background:#eaeaea; border:2px dashed #ccc; border-radius:var(--radius); margin: 15px 0;"></div> style="display:none;">
-      <h3>Arquimedes (Empuxo)</h3>
-      <p>Define que todo corpo imerso em um fluido recebe uma força contrária ao peso. Em robôs, aparece no equilíbrio de peso e centro de massa do robô, garantindo estabilidade.</p>
+    <div id="arquimedes" class="build-content" style="display:none;">
+      <h3>Arquimedes</h3>
+      <p>Força de empuxo mantém equilíbrio e estabilidade.</p>
     </div>
 
-    <div id="plano" class="build-content"><div class="img-placeholder" style="width:100%; height:220px; background:#eaeaea; border:2px dashed #ccc; border-radius:var(--radius); margin: 15px 0;"></div> style="display:none;">
+    <div id="plano" class="build-content" style="display:none;">
       <h3>Plano Inclinado</h3>
-      <p>Permite mover objetos com menos força ao aumentar a distância percorrida. Em robótica, é usado em rampas, elevações e mecanismos de levantamento progressivo.</p>
+      <p>Reduz força necessária ao mover objetos.</p>
     </div>
 
-    <div id="hooke" class="build-content"><div class="img-placeholder" style="width:100%; height:220px; background:#eaeaea; border:2px dashed #ccc; border-radius:var(--radius); margin: 15px 0;"></div> style="display:none;">
+    <div id="hooke" class="build-content" style="display:none;">
       <h3>Lei de Hooke</h3>
-      <p>A força de um elástico ou mola aumenta conforme ele é esticado. Usado em catapultas, amortecimentos e garras elásticas.</p>
+      <p>Força de uma mola é proporcional ao quanto ela é esticada.</p>
     </div>
 
-    <script>
-      function openBuildTab(id) {
-        document.querySelectorAll('.build-content').forEach(c => c.style.display = 'none');
-        document.getElementById(id).style.display = 'block';
-      }
-    </script>
+<script>
+function openBuildTab(id) {
+  document.querySelectorAll('.build-content').forEach(c => c.style.display = 'none');
+  document.getElementById(id).style.display = 'block';
+}
+</script>
 
-</section>
+  </section>
 
   <section id="recursos">
     <h2>Recursos</h2>
-    <p>Aqui você terá acesso ao nosso site parceiro:</p>
     <p><strong>GR Biotech (em breve link aqui)</strong></p>
   </section>
 
   <section id="sobre">
     <h2>Sobre Nós</h2>
-    <p>Somos a <strong>Biotech Learning Center</strong>, uma equipe de robótica do <strong>SESI de Barra Bonita</strong>, com <strong>14 anos de história</strong> na <strong>FIRST LEGO League (FLL)</strong>.</p>
-    <p>Ao longo da nossa jornada, já conquistamos vagas para <strong>8 torneios mundiais</strong>, levando inovação, dedicação e espírito de colaboração.</p>
-    <p>Nosso objetivo é compartilhar conhecimento e ajudar outras equipes a evoluir, porque acreditamos que <strong>crescer junto é mais poderoso do que competir sozinho</strong>.</p>
+    <p>Equipe Biotech, SESI Barra Bonita — 14 anos de história na FLL.</p>
   </section>
+
 </div>
 
 <footer>
-  <p>© 2025 Equipe de Robótica - Todos os direitos reservados</p>
+  <p>© 2025 Equipe de Robótica</p>
+
+  <a href="https://instagram.com/biotech.fll" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
+    style="width:24px; height:24px;">
+  </a>
 </footer>
 
 <script>
@@ -165,65 +192,5 @@ function openProgTab(id) {
   }
 </script>
 
-  <main>
-    <section id="programacao">
-      <h2>Programações</h2>
-      <p>Adicione aqui códigos, imagens e explicações.</p>
-    </section>
-
-    <section id="mecanismos">
-  <h2>Mecanismos</h2>
-  <p>Selecione um mecanismo para visualizar:</p>
-  <div class="mecanismo-grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:15px; margin-top:20px;">
-    <div class="mec-item" onclick="openMec('base')" style="cursor:pointer; text-align:center;">
-      <img src="IMAGEM_BASE_AQUI.png" alt="Base do Robô" style="width:100%; height:180px; background:#eaeaea; border-radius:var(--radius); object-fit:cover; margin-bottom:8px;">
-      <p>Base do Robô</p>
-    </div>
-    <div class="mec-item" onclick="openMec('garra')" style="cursor:pointer; text-align:center;">
-      <img src="IMAGEM_GARRA_AQUI.png" alt="Garra" style="width:100%; height:180px; background:#eaeaea; border-radius:var(--radius); object-fit:cover; margin-bottom:8px;">
-      <p>Garra</p>
-    </div>
-    <div class="mec-item" onclick="openMec('levantador')" style="cursor:pointer; text-align:center;">
-      <img src="IMAGEM_LEVANTADOR_AQUI.png" alt="Levantador" style="width:100%; height:180px; background:#eaeaea; border-radius:var(--radius); object-fit:cover; margin-bottom:8px;">
-      <p>Levantador</p>
-    </div>
-    <div class="mec-item" onclick="openMec('catapulta')" style="cursor:pointer; text-align:center;">
-      <img src="IMAGEM_CATAPULTA_AQUI.png" alt="Catapulta" style="width:100%; height:180px; background:#eaeaea; border-radius:var(--radius); object-fit:cover; margin-bottom:8px;">
-      <p>Catapulta</p>
-    </div>
-  </div>
-
-  <div id="mec-detalhe" style="display:none; margin-top:25px; padding:20px; border:1px solid #ddd; border-radius:var(--radius); background:white; animation:fadeIn .4s ease;">
-    <h3 id="mec-titulo"></h3>
-    <img id="mec-img" src="" style="width:100%; border-radius:var(--radius); margin:15px 0;">
-    <p id="mec-desc"></p>
-    <button onclick="document.getElementById('mec-detalhe').style.display='none'" class="tab-btn" style="margin-top:15px;">Voltar</button>
-  </div>
-
-  <script>
-    function openMec(tipo) {
-      const data = {
-        base: {titulo: "Base do Robô", img: "IMAGEM_BASE_AQUI.png" alt="Base do Robô" style="width:100%; height:180px; background:#eaeaea; border-radius:var(--radius); object-fit:cover; margin-bottom:8px;">
-</section>
-  </main>
-<div id="img-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.8); justify-content:center; align-items:center; z-index:9999;">
-  <img id="img-modal-content" src="" style="max-width:90%; max-height:90%; border-radius:var(--radius);">
-</div>
-<script>
-document.addEventListener('click', function(e) {
-  if(e.target.tagName === 'IMG' && !e.target.closest('#img-modal')) {
-    const modal = document.getElementById('img-modal');
-    const modalImg = document.getElementById('img-modal-content');
-    modalImg.src = e.target.src;
-    modal.style.display = 'flex';
-  }
-  if(e.target.id === 'img-modal') {
-    e.target.style.display = 'none';
-  }
-});
-</script>
 </body>
 </html>
-
-
-
