@@ -4,41 +4,66 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Biotech Learning Center</title>
+
   <style>
   :root {
     --primary: #ff6501;
     --primary-dark: #e76f20;
     --bg: #fafafa;
     --text: #333;
-    --radius: 6px;
+    --radius: 4px;
     --transition: .3s ease;
   }
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Inter', Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding-bottom: 90px; }
-  header { padding: 40px 20px; text-align: center; background: var(--primary); color: white; animation: fadeIn .8s ease; }
-  nav { display: flex; justify-content: center; gap: 10px; padding: 15px; }
-  nav a { padding: 10px 18px; border-radius: var(--radius); text-decoration: none; color: var(--text); transition: var(--transition); font-weight: 500; }
+
+  body { 
+    font-family: 'Inter', Arial, sans-serif; 
+    background: var(--bg); 
+    color: var(--text); 
+    line-height: 1.6; 
+    padding-bottom: 90px; /* espaço para o footer fixo */
+  }
+
+  header { 
+    padding: 40px 20px; 
+    text-align: center; 
+    background: var(--primary); 
+    color: white; 
+    border-bottom-left-radius: var(--radius); 
+    border-bottom-right-radius: var(--radius); 
+    animation: fadeIn .8s ease; 
+  }
+
+  nav { 
+    display: flex; 
+    justify-content: center; 
+    gap: 10px; 
+    padding: 15px; 
+  }
+  nav a { 
+    padding: 10px 18px; 
+    border-radius: var(--radius); 
+    text-decoration: none; 
+    color: var(--text); 
+    transition: var(--transition); 
+    font-weight: 500; 
+  }
   nav a:hover { background: var(--primary); color: white; }
-  .container { max-width: 900px; margin: auto; padding: 40px 20px; }
+
+  .container { max-width: 900px; margin: auto; padding: 40px 20px; animation: fadeIn .8s ease; }
   section { display: none; }
   section.active { display: block; }
+
   h2 { margin-bottom: 16px; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px);} to { opacity: 1; transform: translateY(0);} }
 
-  /* Tabs */
-  .tab-buttons{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;}
-  .tab-btn{padding:10px 18px;border-radius:var(--radius);border:1px solid var(--primary);background:white;color:var(--primary);cursor:pointer;transition:var(--transition);font-weight:500;}
-  .tab-btn:hover{background:var(--primary);color:white;}
-  .prog-content, .build-content { animation:fadeIn .4s ease; }
-
-  /* Footer Fixo */
   footer {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
     text-align: center;
-    padding: 15px 20px;
+    padding: 18px;
     background: var(--primary);
     color: white;
     display: flex;
@@ -47,22 +72,32 @@
     gap: 14px;
     z-index: 999;
   }
-  footer a {
-    display:flex;
+
+  .insta-btn {
+    display:flex; 
+    justify-content:center; 
     align-items:center;
-    justify-content:center;
-    height:40px;
-    width:40px;
+    width:38px; 
+    height:38px; 
     border-radius:50%;
-    background:white;
-    transition:.3s;
+    background:white; 
+    transition:.3s; 
   }
-  footer a:hover { transform: scale(1.12); }
+  .insta-btn:hover { transform: scale(1.12); }
+
+  .tab-buttons{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;}
+  .tab-btn{padding:10px 18px;border-radius:var(--radius);border:1px solid var(--primary);background:white;color:var(--primary);cursor:pointer;transition:var(--transition);font-weight:500;}
+  .tab-btn:hover{background:var(--primary);color:white;}
+  .prog-content,.build-content{animation:fadeIn .4s ease;}
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px);} to { opacity: 1; transform: translateY(0);} }
   </style>
 </head>
+
 <body>
 
 <header>
+  <img id="team-logo" src="logo.png" style="max-height:80px; margin-bottom:10px; animation:fadeIn .8s ease;">
   <h1>Biotech Learning Center</h1>
 </header>
 
@@ -76,11 +111,13 @@
 
 <div class="container">
 
+  <!-- HOME -->
   <section id="home" class="active">
     <h2>Bem-vindo!</h2>
     <p>Este site foi criado para ajudar equipes de robótica a aprender, evoluir e colaborar.</p>
   </section>
 
+  <!-- PROGRAMAÇÃO -->
   <section id="prog">
     <h2>Programação</h2>
 
@@ -92,33 +129,40 @@
     </div>
 
     <div id="pid" class="prog-content">
+      <div class="img-placeholder" style="width:100%; height:200px; background:#eaeaea; border:2px dashed #ccc; margin: 15px 0;"></div>
       <h3>Movimento Reto com PID</h3>
-      <p>O PID ajusta a potência dos motores em tempo real para manter o robô alinhado.</p>
+      <p>O PID é um controlador que ajusta automaticamente a potência dos motores para manter o robô alinhado com base na leitura dos sensores.</p>
+      <ul>
+        <li><strong>P:</strong> Reage ao erro imediato.</li>
+        <li><strong>I:</strong> Compensa erros acumulados.</li>
+        <li><strong>D:</strong> Suaviza oscilações.</li>
+      </ul>
     </div>
 
     <div id="sem-pid" class="prog-content" style="display:none;">
-      <h3>Reto sem PID</h3>
-      <p>Usa a mesma potência nos dois motores. Simples, porém instável em trajetos longos.</p>
+      <h3>Movimento Reto sem PID</h3>
+      <p>Ambos os motores recebem a mesma potência, ideal para trajetos curtos.</p>
     </div>
 
     <div id="curva-normal" class="prog-content" style="display:none;">
       <h3>Curva Normal</h3>
-      <p>Um motor gira mais rápido que o outro. Fácil, porém pouco precisa.</p>
+      <p>Um motor gira mais forte que o outro para fazer a curva.</p>
     </div>
 
     <div id="curva-controle" class="prog-content" style="display:none;">
       <h3>Curva com Controle</h3>
-      <p>Usa giroscópio para obter ângulos mais precisos em curvas.</p>
+      <p>Utiliza giroscópio para manter ângulos exatos.</p>
     </div>
-</section>
+  </section>
 
-<script>
-function openProgTab(id) {
-  document.querySelectorAll('.prog-content').forEach(c=>c.style.display='none');
-  document.getElementById(id).style.display='block';
-}
-</script>
+  <script>
+  function openProgTab(id) {
+    document.querySelectorAll('.prog-content').forEach(c=>c.style.display='none');
+    document.getElementById(id).style.display='block';
+  }
+  </script>
 
+  <!-- ROBÓTICA -->
   <section id="robotica">
     <h2>Construção de Robôs</h2>
 
@@ -131,57 +175,64 @@ function openProgTab(id) {
     </div>
 
     <div id="pascal" class="build-content">
+      <div class="img-placeholder" style="width:100%; height:220px; background:#eaeaea; border:2px dashed #ccc;"></div>
       <h3>Princípio de Pascal</h3>
-      <p>Pressão aplicada a um fluido se distribui igualmente.</p>
+      <p>Pressão aplicada em um fluido se distribui igualmente → pneumática.</p>
     </div>
 
     <div id="pneumatica" class="build-content" style="display:none;">
+      <div class="img-placeholder" style="width:100%; height:220px; background:#eaeaea; border:2px dashed #ccc;"></div>
       <h3>Pneumática</h3>
-      <p>Usa ar comprimido para movimentar mecanismos.</p>
+      <p>Ar comprimido gera movimento rápido.</p>
     </div>
 
     <div id="arquimedes" class="build-content" style="display:none;">
-      <h3>Arquimedes</h3>
-      <p>Força de empuxo mantém equilíbrio e estabilidade.</p>
+      <div class="img-placeholder" style="width:100%; height:220px; background:#eaeaea; border:2px dashed #ccc;"></div>
+      <h3>Arquimedes (Empuxo)</h3>
+      <p>Equilíbrio de peso = estabilidade.</p>
     </div>
 
     <div id="plano" class="build-content" style="display:none;">
+      <div class="img-placeholder" style="width:100%; height:220px; background:#eaeaea; border:2px dashed #ccc;"></div>
       <h3>Plano Inclinado</h3>
-      <p>Reduz força necessária ao mover objetos.</p>
+      <p>Menos força ao aumentar a distância.</p>
     </div>
 
     <div id="hooke" class="build-content" style="display:none;">
+      <div class="img-placeholder" style="width:100%; height:220px; background:#eaeaea; border:2px dashed #ccc;"></div>
       <h3>Lei de Hooke</h3>
-      <p>Força de uma mola é proporcional ao quanto ela é esticada.</p>
+      <p>Mais esticado = mais força (catapultas).</p>
     </div>
 
-<script>
-function openBuildTab(id) {
-  document.querySelectorAll('.build-content').forEach(c => c.style.display = 'none');
-  document.getElementById(id).style.display = 'block';
-}
-</script>
+    <script>
+      function openBuildTab(id) {
+        document.querySelectorAll('.build-content').forEach(c => c.style.display = 'none');
+        document.getElementById(id).style.display = 'block';
+      }
+    </script>
 
   </section>
 
+  <!-- RECURSOS -->
   <section id="recursos">
     <h2>Recursos</h2>
     <p><strong>GR Biotech (em breve link aqui)</strong></p>
   </section>
 
+  <!-- SOBRE -->
   <section id="sobre">
     <h2>Sobre Nós</h2>
-    <p>Equipe Biotech, SESI Barra Bonita — 14 anos de história na FLL.</p>
+    <p>Somos a equipe Biotech Learning Center do SESI Barra Bonita, com 14 anos de história na FLL e 8 mundiais conquistados.</p>
   </section>
 
 </div>
 
+<!-- FOOTER FIXO + INSTAGRAM -->
 <footer>
-  <p>© 2025 Equipe de Robótica</p>
+  <p>© 2025 Equipe de Robótica - Todos os direitos reservados</p>
 
-  <a href="https://instagram.com/biotech.fll" target="_blank">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
-    style="width:24px; height:24px;">
+  <a class="insta-btn" href="https://www.instagram.com/biotech.fll" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" style="width:24px; height:24px;">
   </a>
 </footer>
 
